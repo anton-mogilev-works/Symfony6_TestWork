@@ -1,0 +1,15 @@
+{# {% if question_id %}
+{{question_id}} <br /><br />
+{% endif %} #}
+
+
+{% if question %}
+<strong>{{ question.getText() }} </strong>
+<br />
+<br />
+<input type="hidden" name="question_id" value="{{ question.getId()}}" />
+{% for answer in question.getAnswers() %}
+<input type="{{type}}" name="answer_id[]" value="{{answer.getId()}}" />{{ answer.getText() }}
+<br />
+{% endfor %}
+{% endif %}

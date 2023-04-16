@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{# Делаем всё через jquery и AJAX #}
+
+<head>
+    <script type="text/javascript" src="/js/jquery-3.6.4.min.js"></script>
+    <script type="text/javascript">
+        $(window).on('load', function () {
+            // При загрузке страницы сразу делаем запрос на сервер через AJAX для получения формы
+            $.ajax({
+                method: "GET",
+                url: "/io_data",
+                dataType: "html"
+            }).done(function (data) {
+                $('form#data_form').html(data);
+            });
+
+            // Обработка нажатия кнопки - отсылаем форму через AJAX
+            $('button#send_answer').click(function () {
+                $.ajax({
+                    method: "POST",
+                    url: "/io_data",
+                    data: $('form#data_form').serialize()
+                }).done(function (data) {
+                    $('form#data_form').html(data);
+                });
+            });
+
+        });
+
+    </script>
+</head>
+<html>
+
+<body>
+    <form id="data_form" action="/io_data" method="post">
+    </form>
+    <br />
+    <button id="send_answer">Ответить</button>
+
+</body>
+
+</html>

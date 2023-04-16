@@ -1,0 +1,28 @@
+<strong>Благодарим за участие в опросе </strong>
+{% if report %}
+
+<table style="border:  1px solid black;">
+    <tr>
+        <th style="border:  1px solid black;">Вопрос</th>
+        <th style="border:  1px solid black;">Количество ответов</th>
+        <th style="border:  1px solid black;">Доля</th>
+    </tr>
+    {% for question in report %}
+    <tr>
+        <td >{{ question['Text'] }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    {% for answer in question['Answers'] %}
+    <tr>
+        <td style="border:  1px solid black;">{{ answer|keys|first }}</td>
+        <td style="border:  1px solid black;">{{ answer|first }}</td>
+        <td style="border:  1px solid black;">{{ ( ( answer|first / question['Total'] ) * 100 ) | round(2, 'floor')}} %
+        </td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+
+</table>
+
+{% endif %}
